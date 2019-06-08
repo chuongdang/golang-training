@@ -58,6 +58,7 @@
 - We `import "fmt"` to use function in `fmt` package
 - To see what can `fmt` do, and other built-in packages, take a look at [https://golang.org/pkg/](https://golang.org/pkg/)
 - For example we import `fmt`, `calculator` and `uploader`
+
     ![](images/import.png)
 
 ### What does `func` mean?
