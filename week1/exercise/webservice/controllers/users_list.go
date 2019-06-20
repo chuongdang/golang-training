@@ -7,13 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func HandleUserListRequest(ctx *gin.Context) {
+func (uc *UserController) HandleUserListRequest(ctx *gin.Context) {
 	users, err := users.GetListUser()
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(500, dto.ErrorResponse{Message: err.Error()})
+		ctx.JSON(500, dto.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	ctx.AbortWithStatusJSON(200, dto.Response{Data: users})
+	uc.Response(ctx, users)
 }

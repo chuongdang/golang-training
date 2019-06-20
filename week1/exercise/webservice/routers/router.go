@@ -10,8 +10,12 @@ var router *gin.Engine
 
 func init() {
 	router = gin.Default()
+	userController := controllers.UserController{}
+
 	router.GET("/ping", controllers.HandlePingRequest)
-	router.GET("/users", controllers.HandleUserListRequest)
+	router.GET("/users", userController.HandleUserListRequest)
+	router.GET("/users/:id", userController.HandleUserDetailRequest)
+	router.POST("/users", userController.HandleAddUserRequest)
 }
 
 /*
