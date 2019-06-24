@@ -8,18 +8,20 @@ import (
 )
 
 func main() {
+	urlList := []string{
+		"https://github.com",
+		"https://google.com",
+		"https://pornhub.com",
+		"https://thiendia.com",
+		"https://zing.vn",
+	}
+
 	runtime.GOMAXPROCS(8)
 	var waitgroup sync.WaitGroup
-	waitgroup.Add(1)
-	go healthcheck("https://github.com", &waitgroup)
-	waitgroup.Add(1)
-	go healthcheck("https://google.com", &waitgroup)
-	waitgroup.Add(1)
-	go healthcheck("https://pornhub.com", &waitgroup)
-	waitgroup.Add(1)
-	go healthcheck("https://thiendia.com", &waitgroup)
-	waitgroup.Add(1)
-	go healthcheck("https://zing.vn", &waitgroup)
+	waitgroup.Add(len(urlList))
+	for _, url := range urlList {
+		go healthcheck(url, &waitgroup)
+	}
 	waitgroup.Wait()
 }
 
