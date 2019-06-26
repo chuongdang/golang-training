@@ -7,6 +7,9 @@ import (
 )
 
 func GetListProduct() (products []entities.Product, err error) {
-	err = db.GetConn().Select(&products, "SELECT id_product, fk_category, name, image FROM product")
+	err = db.GetConn().Select(
+		&products,
+		"SELECT id_product, fk_category, name, image FROM product LIMIT 100",
+	)
 	return
 }
