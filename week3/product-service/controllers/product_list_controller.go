@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"product-service/models"
+	"product-service/transformer"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,5 +15,9 @@ func HandleProductList(ctx *gin.Context) {
 		})
 		return
 	}
-	ctx.JSON(200, products)
+
+	categoriesData, _ := models.GetCategoriesDetailFromProductList(&products)
+	productsDto, _ := transformer.MapProductForResponse(&products, categoriesData)
+
+	ctx.JSON(200, productsDto)
 }

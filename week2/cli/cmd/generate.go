@@ -21,7 +21,7 @@ var generateCmd = &cobra.Command{
 		for i := 1; i <= 200; i++ {
 			waitgroup.Add(1)
 			go insertCategory(
-				fmt.Sprintf("%v %v", PRODUCT_PREFIX, i),
+				fmt.Sprintf("%v %v", CATEGORY_PREFIX, i),
 				&waitgroup,
 			)
 		}
@@ -60,8 +60,9 @@ func insert(productName string, categoryId int, waitgroup *sync.WaitGroup) {
 func insertCategory(categoryName string, waitgroup *sync.WaitGroup) {
 	defer waitgroup.Done()
 	query := fmt.Sprintf(
-		"INSERT INTO category(name) VALUES ('%v')",
+		"INSERT INTO category(name, image) VALUES ('%v', '%v')",
 		categoryName,
+		"https://via.placeholder.com/350x150",
 	)
 	db.GetConn().MustExec(query)
 }

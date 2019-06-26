@@ -2,7 +2,7 @@ package entities
 
 type Product struct {
 	ID         int64  `db:"id_product" json:"id,omitempty"`
-	FkCategory string `db:"fk_category" json:"category_id"`
+	FkCategory int    `db:"fk_category" json:"category_id"`
 	Name       string `db:"name" json:"name"`
 	Image      string `db:"image" json:"image"`
 	CreatedAt  string `db:"created_at" json:"created_at,omitempty"`
