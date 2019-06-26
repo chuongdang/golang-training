@@ -1,8 +1,9 @@
 package models
 
 import (
-	"product-service/db"
 	"product-service/entities"
+
+	"github.com/chuongdang/golang-libs/db"
 )
 
 func GetListProduct() (products []entities.Product, err error) {
