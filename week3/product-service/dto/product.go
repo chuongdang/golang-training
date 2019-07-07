@@ -8,3 +8,14 @@ type Product struct {
 	CreatedAt string      `json:"created_at,omitempty"`
 	UpdatedAt string      `json:"updated_at,omitempty"`
 }
+
+type ProductGetParams struct {
+	Page  int `form:"page"`
+	Limit int `form:"limit"`
+	Sort  ProductSort `form:"sort[]"`
+}
+
+type ProductSort struct {
+	Id   string `form:"id"`
+	Name string `form:"name"`
+}

@@ -1,30 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { List, Typography } from 'antd';
+import React from 'react'
+import './App.css'
+import { List, Card } from 'antd'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { loadProducts as loadProductsAction } from 'actions/product_action'
+const { Meta } = Card
 
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.',
-];
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    const { loadProducts } = this.props
+    loadProducts({ page: 1, limit: 100 })
+  }
 
-function App() {
-  return (
-    <List
-      header={<div>Header</div>}
-      footer={<div>Footer</div>}
-      bordered
-      dataSource={data}
-      renderItem={item => (
-        <List.Item>
-          <Typography.Text mark>[ITEM]</Typography.Text> {item}
-        </List.Item>
-      )}
-    />
-  );
+  renderCover(title, imageUrl) {
+    return <img alt={title} src={imageUrl} />
+  }
+
+  render() {
+    const { loading, products } = this.props
+    return (
+      <List
+        grid={{ gutter: 16, column: 4 }}
+        dataSource={products}
+        renderItem={item => (
+          <List.Item>
+            <Card
+              hoverable
+              style={{ width: 240 }}
+              cover={this.renderCover(item.name, item.image)}
+            >
+              <Meta title={item.name} description={item.name} />
+            </Card>
+          </List.Item>
+        )}
+      />
+    );
+  }
 }
 
-export default App;
+App.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  products: PropTypes.arrayOf(
+    PropTypes.object
+  )
+}
+
+const mapStateToProps = ({
+  product: { loading, products }
+}) => ({
+  loading,
+  products
+})
+
+export default connect(mapStateToProps, {
+  loadProducts: loadProductsAction,
+})(App)

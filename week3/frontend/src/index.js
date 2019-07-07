@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import './index.css';
+import { createStore, applyMiddleware } from 'redux';
+import 'index.css';
 import 'antd/dist/antd.css';
-import App from './App';
-import nordicApp from './reducers'
-import * as serviceWorker from './serviceWorker';
+import App from 'App';
+import nordicApp from 'reducers/product_reducer'
+import * as serviceWorker from 'serviceWorker';
 
-const store = createStore(nordicApp)
+import fetchMidleware from 'middlewares/fetch'
+
+const enhancer = applyMiddleware(fetchMidleware)
+
+const store = createStore(nordicApp, enhancer)
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,35 +1,46 @@
 import { combineReducers } from 'redux'
 import {
-  INIT
-} from '../actions'
+  LOAD_PRODUCT,
+  LOAD_PRODUCT_OK
+} from 'actions/types'
 
-function todos(state = [], action) {
-  switch (action.type) {
-    case INIT:
-      return [
+const DEFAULT_STATE = {
+  loading: false,
+  products: []
+}
+
+const product = (state = DEFAULT_STATE, { type, ...payload }) => {
+  switch (type) {
+    case LOAD_PRODUCT:
+      return {
         ...state,
-        {
-          products: action.,
-          completed: false
+        loading: true
+      }
+    case LOAD_PRODUCT_OK:
+        return {
+          ...state,
+          loading: false,
+          products: payload.data
         }
-      ]
-    case TOGGLE_TODO:
-      return state.map((todo, index) => {
-        if (index === action.index) {
-          return Object.assign({}, todo, {
-            completed: !todo.completed
-          })
-        }
-        return todo
-      })
     default:
       return state
   }
 }
 
-const todoApp = combineReducers({
-  visibilityFilter,
-  todos
+const DEFAULT_USER_STATE = {
+  token: 'token'
+}
+
+const user = (state = DEFAULT_USER_STATE, action) => {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
+const nordicApp = combineReducers({
+  product,
+  user
 })
 
-export default todoApp
+export default nordicApp

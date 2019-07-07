@@ -22,7 +22,8 @@ func GetCategoriesDetailFromProductList(
 	categoryData, _ := category_service.FetchCategoryByIdList(categoryIdList)
 	err = json.Unmarshal(categoryData, &categoryList)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		log.Println(categoryData)
 		return
 	}
 

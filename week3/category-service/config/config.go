@@ -1,6 +1,6 @@
 package config
 
-const PORT = "8888"
+const PORT = "7878"
 
 const MYSQL_HOST = "localhost"
 const MYSQL_PORT = "3306"

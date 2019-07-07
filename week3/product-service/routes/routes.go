@@ -1,11 +1,11 @@
 package routes
 
 import (
+	"github.com/gin-gonic/gin"
 	"os"
 	"product-service/config"
 	"product-service/controllers"
-
-	"github.com/gin-gonic/gin"
+	"product-service/middlewares"
 )
 
 func Start() {
@@ -14,6 +14,7 @@ func Start() {
 		port = config.PORT
 	}
 	route := gin.Default()
+	route.Use(middlewares.CORSMiddleware)
 	route.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"message": "pong",

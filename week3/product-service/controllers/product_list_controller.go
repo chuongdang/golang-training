@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"log"
+	"product-service/dto"
 	"product-service/models"
 	"product-service/transformer"
 
@@ -8,7 +10,11 @@ import (
 )
 
 func HandleProductList(ctx *gin.Context) {
-	products, err := models.GetListProduct()
+	params := dto.ProductGetParams{}
+	if err := ctx.BindQuery(&params); err != nil {
+			log.Println(err)
+	}
+	products, err := models.GetListProduct(&params)
 	if err != nil {
 		ctx.JSON(500, gin.H{
 			"message": "Could not get Product List. Err:" + err.Error(),
