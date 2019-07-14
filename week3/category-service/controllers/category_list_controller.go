@@ -2,9 +2,8 @@ package controllers
 
 import (
 	"category-service/models"
-	"strings"
-
 	"github.com/gin-gonic/gin"
+	"strings"
 )
 
 func HandleCategoryList(ctx *gin.Context) {

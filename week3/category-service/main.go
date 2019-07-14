@@ -2,12 +2,18 @@ package main
 
 import (
 	"category-service/config"
+	"category-service/dberr"
 	"category-service/routes"
-
 	"github.com/chuongdang/golang-libs/db"
 )
 
 func main() {
+	InitDB()
+	go CheckDB()
+	routes.Start()
+}
+
+func InitDB() {
 	dbConfig := db.DBConfig{
 		Username: config.MYSQL_USERNAME,
 		Password: config.MYSQL_PASSWORD,
@@ -17,5 +23,14 @@ func main() {
 		MaxConn:  config.MYSQL_MAX_CONNECTION,
 	}
 	db.Init(&dbConfig)
-	routes.Start()
 }
+
+func CheckDB() {
+	for {
+		err := <- dberr.ErrChannel
+		if err == true {
+			InitDB()
+		}
+	}
+}
+

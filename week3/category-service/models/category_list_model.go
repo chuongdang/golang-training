@@ -1,6 +1,7 @@
 package models
 
 import (
+	"category-service/dberr"
 	"category-service/entities"
 	"fmt"
 	"strings"
@@ -15,5 +16,9 @@ func GetListCategory(idList []string) (categories []entities.Category, err error
 		query += fmt.Sprintf(" WHERE id_category IN (%v)", idListString)
 	}
 	err = db.GetConn().Select(&categories, query)
+	if err != nil {
+		dberr.ErrChannel <- true
+		err = db.GetConn().Select(&categories, query)
+	}
 	return
 }

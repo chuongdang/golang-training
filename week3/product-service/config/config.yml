@@ -1,0 +1,13 @@
+api:
+  port: 8989
+mysql:
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+  dbname: nordic
+  charset: utf8
+  maxIdleConnection: 10
+  maxOpenConnection: 100
+services:
+  categoryService: http://127.0.0.1:7878/

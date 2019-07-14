@@ -22,7 +22,13 @@ func HandleProductList(ctx *gin.Context) {
 		return
 	}
 
-	categoriesData, _ := models.GetCategoriesDetailFromProductList(&products)
+	categoriesData, err := models.GetCategoriesDetailFromProductList(&products)
+	if err != nil {
+		ctx.JSON(500, gin.H{
+			"message": "Could not get Category Info. Err:" + err.Error(),
+		})
+		return
+	}
 	productsDto, _ := transformer.MapProductForResponse(&products, categoriesData)
 
 	ctx.JSON(200, productsDto)

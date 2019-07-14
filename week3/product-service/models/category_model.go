@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"log"
 	"product-service/dto"
 	"product-service/entities"
 	"product-service/service/category_service"
@@ -19,11 +18,12 @@ func GetCategoriesDetailFromProductList(
 	}
 
 	var categoryList []dto.Category
-	categoryData, _ := category_service.FetchCategoryByIdList(categoryIdList)
+	categoryData, err := category_service.FetchCategoryByIdList(categoryIdList)
+	if err != nil {
+		return
+	}
 	err = json.Unmarshal(categoryData, &categoryList)
 	if err != nil {
-		log.Println(err)
-		log.Println(categoryData)
 		return
 	}
 

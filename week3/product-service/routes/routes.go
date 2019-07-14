@@ -11,7 +11,7 @@ import (
 func Start() {
 	port := os.Getenv("PRODUCT_SERVICE_PORT")
 	if port == "" {
-		port = config.PORT
+		port = config.Config.Api.Port
 	}
 	route := gin.Default()
 	route.Use(middlewares.CORSMiddleware)

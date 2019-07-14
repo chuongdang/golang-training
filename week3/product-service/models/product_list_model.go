@@ -2,11 +2,10 @@ package models
 
 import (
 	"fmt"
+	"github.com/chuongdang/golang-libs/db"
 	"product-service/constants"
 	"product-service/dto"
 	"product-service/entities"
-
-	"github.com/chuongdang/golang-libs/db"
 )
 
 func GetListProduct(params *dto.ProductGetParams) (products []entities.Product, err error) {
