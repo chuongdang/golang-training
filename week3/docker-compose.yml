@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  product_service:
+    image: chuongdang291088/nordic:product-service
+    build:
+      context: ./product-service
+    container_name: "product_service"
+    networks:
+      - "nordic_network"
+    ports:
+      - "8989:8080"
+    environment:
+      - "GO_ENV=prod"
+    links:
+      - category:category_service
+
+  category:
+    image: chuongdang291088/nordic:category-service
+    build:
+      context: ./category-service
+    container_name: "category"
+    networks:
+      - "nordic_network"
+    environment:
+      - "GO_ENV=prod"
+
+networks:
+  nordic_network:

@@ -1,0 +1,11 @@
+api:
+  port: 8080
+mysql:
+  host: host.docker.internal
+  port: 3306
+  username: root
+  password: root
+  dbname: nordic
+  charset: utf8
+  maxIdleConnection: 10
+  maxOpenConnection: 100

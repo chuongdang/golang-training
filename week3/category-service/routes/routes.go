@@ -11,7 +11,7 @@ import (
 func Start() {
 	port := os.Getenv("CATEGORY_SERVICE_PORT")
 	if port == "" {
-		port = config.PORT
+		port = config.Config.Api.Port
 	}
 	route := gin.Default()
 	route.GET("/ping", func(ctx *gin.Context) {
