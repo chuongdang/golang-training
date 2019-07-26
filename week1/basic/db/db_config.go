@@ -1,7 +1,5 @@
 package db
 
-import "fmt"
-
 type DBConfig struct {
 	Username string
 	Password string
@@ -11,13 +9,6 @@ type DBConfig struct {
 	MaxConn  int
 }
 
-func (cfg *DBConfig) BuildConnString() string {
-	return fmt.Sprintf(
-		"%v:%v@(%v:%v)/%v",
-		cfg.Username,
-		cfg.Password,
-		cfg.Host,
-		cfg.Port,
-		cfg.DbName,
-	)
+type DBConfigInterface interface {
+	BuildConnString() string
 }

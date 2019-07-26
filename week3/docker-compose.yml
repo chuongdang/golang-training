@@ -1,28 +1,24 @@
 version: '3.7'
 services:
-  product_service:
-    image: chuongdang291088/nordic:product-service
-    build:
-      context: ./product-service
-    container_name: "product_service"
-    networks:
-      - "nordic_network"
+  jaeger:
+    image: jaegertracing/all-in-one:latest
     ports:
-      - "8989:8080"
-    environment:
-      - "GO_ENV=prod"
-    links:
-      - category:category_service
-
-  category:
-    image: chuongdang291088/nordic:category-service
-    build:
-      context: ./category-service
-    container_name: "category"
+      - "6831:6831/udp"
+      - "16686:16686"
     networks:
-      - "nordic_network"
+      - jaeger-example
+  hotrod:
+    image: jaegertracing/example-hotrod:latest
+    ports:
+      - "8080:8080"
+    command: ["all"]
     environment:
-      - "GO_ENV=prod"
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+    networks:
+      - jaeger-example
+    depends_on:
+      - jaeger
 
 networks:
-  nordic_network:
+  jaeger-example:

@@ -9,13 +9,13 @@ import (
 
 var conn *sqlx.DB
 
-func Init(config *DBConfig) {
-	db, err := sqlx.Connect("mysql", config.BuildConnString())
+func Init(driverName string, config DBConfigInterface) {
+	db, err := sqlx.Connect(driverName, config.BuildConnString())
 	if err != nil {
 		log.Fatalln("Could not connect to DB")
 	}
-	db.SetMaxIdleConns(config.MaxConn)
-	db.SetMaxOpenConns(config.MaxConn)
+	//db.SetMaxIdleConns(config.MaxConn)
+	//db.SetMaxOpenConns(config.MaxConn)
 	conn = db
 }
 

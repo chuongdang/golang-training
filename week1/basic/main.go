@@ -7,15 +7,15 @@ import (
 )
 
 func main() {
-	dbConfig := db.DBConfig{
-		Host: config.MYSQL_HOST,
-		Username: config.MYSQL_USER,
-		Password: config.MYSQL_PASS,
-		DbName: config.MYSQL_DB,
-		Port: "3306",
-		MaxConn: 10,
-	}
-	db.Init(&dbConfig)
+	dbConfig := db.MysqlConfig{}
+	dbConfig.Host = config.MYSQL_HOST
+	dbConfig.Username = config.MYSQL_USER
+	dbConfig.Password = config.MYSQL_PASS
+	dbConfig.DbName = config.MYSQL_DB
+	dbConfig.Port = "3306"
+	dbConfig.MaxConn = 10
+
+	db.Init("mysql", &dbConfig)
 	routes.Init()
 	routes.Start()
 }
