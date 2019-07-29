@@ -1,12 +1,13 @@
 package entity
 
 type User struct {
-	FkRole   int `db:"fk_role"`
+	ID       int `db:"id_user" json:"id"`
+	FkRole   int `db:"fk_role" json:"role_id"`
 	UserCommon
 }
 
 type UserCommon struct {
-	Name     string
-	Email    string
-	Password string
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password,omitempty"`
 }

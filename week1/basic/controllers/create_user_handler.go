@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-func  HandleUserCreate(ctx *gin.Context) {
+func HandleUserCreate(ctx *gin.Context) {
 	var userAddParam dto.UserAddParam
 	if err := ctx.ShouldBindJSON(&userAddParam); err != nil {
 		responseError(ctx, err)
